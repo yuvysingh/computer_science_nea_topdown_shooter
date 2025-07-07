@@ -1,0 +1,93 @@
+[gd_scene load_steps=8 format=3 uid="uid://buyemtldcw40a"]
+
+[ext_resource type="Script" path="res://World/scene_change.gd" id="1_ixu8g"]
+[ext_resource type="PackedScene" uid="uid://ccarurxvwuejx" path="res://World/Dungeon.tscn" id="2_56r0y"]
+[ext_resource type="PackedScene" uid="uid://oeepkcknmiqd" path="res://Player/hearts.tscn" id="3_h6mcf"]
+
+[sub_resource type="Animation" id="Animation_skppv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1pb56"]
+resource_name = "fade_in"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_tp7cv"]
+resource_name = "fade_out"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_byg32"]
+_data = {
+"RESET": SubResource("Animation_skppv"),
+"fade_in": SubResource("Animation_1pb56"),
+"fade_out": SubResource("Animation_tp7cv")
+}
+
+[node name="scene_change" type="Node"]
+script = ExtResource("1_ixu8g")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_byg32")
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = 2
+offset_left = -1723.0
+offset_top = -1450.0
+offset_right = 1789.0
+offset_bottom = 1558.0
+color = Color(0, 0, 0, 0)
+
+[node name="DungeonScene" parent="." instance=ExtResource("2_56r0y")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="DungeonScene"]
+scale = Vector2(5, 5)
+transform = Transform2D(5, 0, 0, 5, 0, 0)
+
+[node name="hearts" parent="DungeonScene/CanvasLayer" instance=ExtResource("3_h6mcf")]
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+z_index = -1
+offset_left = -1615.0
+offset_top = -1175.0
+offset_right = 1515.0
+offset_bottom = 1083.0
+color = Color(0, 0, 0, 1)
